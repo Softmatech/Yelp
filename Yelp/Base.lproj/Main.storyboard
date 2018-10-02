@@ -189,17 +189,37 @@
                                             <constraint firstAttribute="height" constant="365" id="AKx-9C-04y"/>
                                         </constraints>
                                     </mapView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aHI-uB-UDo">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aHI-uB-UDo">
                                         <rect key="frame" x="67" y="8" width="240" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="2jl-sv-Mzx"/>
+                                        </constraints>
                                     </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bNp-Yk-ZXf">
+                                        <rect key="frame" x="126" y="144" width="123" height="18"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mlU-Xb-KSt">
+                                        <rect key="frame" x="216" y="201" width="151" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="oDG-Pr-B6C" firstAttribute="top" secondItem="Diy-BM-Tfa" secondAttribute="top" constant="230" id="77u-lO-yYk"/>
+                                    <constraint firstItem="bNp-Yk-ZXf" firstAttribute="top" secondItem="aHI-uB-UDo" secondAttribute="bottom" constant="8" symbolic="YES" id="ATz-9p-NLE"/>
                                     <constraint firstAttribute="trailing" secondItem="oDG-Pr-B6C" secondAttribute="trailing" id="EKo-pi-cP5"/>
+                                    <constraint firstItem="aHI-uB-UDo" firstAttribute="centerX" secondItem="oDG-Pr-B6C" secondAttribute="centerX" id="OLo-ob-xcZ"/>
                                     <constraint firstItem="oDG-Pr-B6C" firstAttribute="centerX" secondItem="Diy-BM-Tfa" secondAttribute="centerX" id="WJX-FL-0nb"/>
+                                    <constraint firstAttribute="trailing" secondItem="bNp-Yk-ZXf" secondAttribute="trailing" constant="126" id="bii-a3-gag"/>
+                                    <constraint firstItem="bNp-Yk-ZXf" firstAttribute="top" secondItem="aHI-uB-UDo" secondAttribute="bottom" constant="8" id="cFx-tT-yFq"/>
                                     <constraint firstItem="oDG-Pr-B6C" firstAttribute="leading" secondItem="Diy-BM-Tfa" secondAttribute="leading" id="eVZ-PB-Uea"/>
                                     <constraint firstItem="oDG-Pr-B6C" firstAttribute="bottom" secondItem="Diy-BM-Tfa" secondAttribute="bottomMargin" constant="8" id="em3-bP-GXx"/>
+                                    <constraint firstItem="aHI-uB-UDo" firstAttribute="leading" secondItem="Diy-BM-Tfa" secondAttribute="leading" constant="67" id="frp-NF-5cJ"/>
+                                    <constraint firstItem="oDG-Pr-B6C" firstAttribute="top" secondItem="bNp-Yk-ZXf" secondAttribute="bottom" constant="68" id="hRQ-P9-Y05"/>
+                                    <constraint firstItem="bNp-Yk-ZXf" firstAttribute="leading" secondItem="Diy-BM-Tfa" secondAttribute="leading" constant="126" id="hSf-oj-acc"/>
+                                    <constraint firstItem="aHI-uB-UDo" firstAttribute="top" secondItem="Diy-BM-Tfa" secondAttribute="topMargin" id="keZ-rA-bG5"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -212,7 +232,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="distanceLabel" destination="mlU-Xb-KSt" id="qAW-hS-oeG"/>
+                        <outlet property="imageDescriptionView" destination="aHI-uB-UDo" id="gWm-4P-k0o"/>
                         <outlet property="mapView" destination="oDG-Pr-B6C" id="56n-1w-bQC"/>
+                        <outlet property="rateImageView" destination="bNp-Yk-ZXf" id="Apf-i8-4Vn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mh3-so-9WV" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -16,9 +16,9 @@ class Business: NSObject {
     let distance: String?
     let ratingImage: UIImage?
     let reviewCount: NSNumber?
-//    let longitude: Double?
-//    let latitude: Double?
-    
+    let longitude: Double?
+    let latitude: Double?
+//    let distance: Double?
     
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
@@ -29,18 +29,12 @@ class Business: NSObject {
             imageURL = nil
         }
         
-//        let coordinates = dictionary["coordinates"] as? NSDictionary
-//        var long: Double = 0
-//        var lat: Double = 0
-//        if coordinates != nil {
-//            let longitudeArray = coordinates!["longitude"] as! NSArray
-////            let latitudeArray = coordinates!["latitude"] as! NSArray
-//
-//            long = longitudeArray as! Double
-////            lat = latitudeArray[1] as! Double
-//        }
-//        self.longitude = long
-//        self.latitude = lat
+        let coordinates = dictionary["coordinates"] as? NSDictionary
+        var long: Double = coordinates!["longitude"] as! Double
+        var lat: Double = coordinates!["latitude"] as! Double
+        
+        self.longitude = long
+        self.latitude = lat
         
         let location = dictionary["location"] as? NSDictionary
         print("********************------------------->> ", dictionary)

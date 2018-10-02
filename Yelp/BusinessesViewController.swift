@@ -47,12 +47,12 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                 self.networkErrorAlert()
             }
             
-//            if let filteredData = self.filteredData {
-//                for business in filteredData {
-//                    print(business.name!)
-//                    print(business.address!)
-//                }
-//            }
+            if let filteredData = self.filteredData {
+                for business in filteredData {
+//                    print("Longitude :  ",business.longitude!," latitude  :  ",business.latitude)
+//                    print(business.latitude!)
+                }
+            }
             
         }
         )
