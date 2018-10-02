@@ -16,54 +16,46 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchbar: UISearchBar!
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredData = searchText.isEmpty ? businesses: businesses.filter { (item: Business) -> Bool in
+            // If dataItem matches the searchText, return true to include it
+            let lt = item.name
+            return lt!.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        tableView.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.separatorInset = UIEdgeInsets.zero
-//        filteredData = businesses
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 130
         searchbar.delegate = self
-        
+        retrieveData()
+    }
+    
+    func retrieveData(){
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
-                self.businesses = businesses
-                self.tableView.reloadData()
-//                self.filteredData = businesses
-                if let businesses = businesses {
-                    for business in businesses {
-                        print(business.name!)
-                        print(business.address!)
-                        
-                    }
-                }
+            self.businesses = businesses
+            self.filteredData = businesses
+            self.tableView.reloadData()
             
+            if let error = error {
+                print(error.localizedDescription)
+                self.networkErrorAlert()
             }
-        )
-        
-//        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//            print("-----------------------")
-//            filteredData = searchText.isEmpty ? businesses : businesses.filter { (Item: Business) -> Bool in
-//                // If dataItem matches the searchText, return true to include it
-//                print("***********",Business.businesses)
-//                let lt = Item.name!
-//                return lt.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+            
+//            if let filteredData = self.filteredData {
+//                for business in filteredData {
+//                    print(business.name!)
+//                    print(business.address!)
+//                }
 //            }
-//            tableView.reloadData()
-//        }
-       
-        
-        /* Example of Yelp search with more search options specified
-         Business.searchWithTerm(term: "Restaurants", sort: .distance, categories: ["asianfusion", "burgers"]) { (businesses, error) in
-                self.businesses = businesses
-                 for business in self.businesses {
-                     print(business.name!)
-                     print(business.address!)
-                 }
-         }
-         */
-        
+            
+        }
+        )
     }
     
     override func didReceiveMemoryWarning() {
@@ -73,19 +65,39 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if businesses != nil{
-            return businesses.count
+            return filteredData.count
         }
         else{
             return 0
         }
     }
-
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath as IndexPath) as! BusinessCell
-        cell.business = businesses[indexPath.row]
+        cell.business = filteredData[indexPath.row]
         return cell
     }
 
+    func networkErrorAlert(){
+        let alertController = UIAlertController(title: "Network Error", message: "It's Seems there is a network error. Please try again later.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { (action) in self.retrieveData()}))
+        self.present(alertController, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+
+        if let indexPath = tableView.indexPath(for: cell){
+            let restaurant = businesses[indexPath.row]
+            print("-------------------- avan ",restaurant)
+            let map = segue.destination as! MapViewController
+            map.restaurants = [restaurant]
+        }
+    }
+    
+    @IBAction func didTap(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
     
 }

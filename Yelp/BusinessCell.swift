@@ -20,7 +20,7 @@ class BusinessCell: UITableViewCell {
 
     var business: Business! {
         didSet {
-        nameLabel.text = business.name
+            nameLabel.text = business.name
             thumbImageView.setImageWith(business.imageURL!)
             categoriesLabel.text = business.categories
             adressLabel.text = business.address
@@ -28,7 +28,7 @@ class BusinessCell: UITableViewCell {
             ratingImageView.image = business.ratingImage
             distanceLabel.text = business.distance
         }
-        
+    
     }
     
     override func awakeFromNib() {
