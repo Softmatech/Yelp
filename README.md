@@ -14,8 +14,8 @@ The following **required** functionality is completed:
 
 The following **stretch** features are implemented:
 
-- [ ] Infinite scroll for restaurant results. (+3pt)
-- [ ] Implement map view of restaurant results. (+3pt)
+- [X] Infinite scroll for restaurant results. (+3pt)
+- [X] Implement map view of restaurant results. (+3pt)
 - [ ] Implement the restaurant detail page. (+2pt)
 
 The following **additional** features are implemented:
@@ -31,7 +31,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/Sd9iCww.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/7UwpvQf.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
