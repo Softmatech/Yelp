@@ -12,7 +12,8 @@ import CoreLocation
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
 
-    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var stateImageView: UIImageView!
+    @IBOutlet weak var telephoneLabel: UILabel!
     @IBOutlet weak var rateImageView: UIImageView!
     @IBOutlet weak var imageDescriptionView: UIImageView!
     @IBOutlet weak var mapView: MKMapView!
@@ -24,9 +25,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         let rest = restaurants[0]
-        var centerLocation = CLLocation(latitude: rest.latitude!, longitude: rest.longitude!)
-        print("longitude --------------------->>",rest.longitude,"------------latutude ",rest.latitude)
+        let centerLocation = CLLocation(latitude: rest.latitude!, longitude: rest.longitude!)
         
+        self.title = rest.name
         // Do any additional setup after loading the view.
         // set the region to display, this also sets a correct zoom level
         // set starting center location in San Francisco
@@ -35,11 +36,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         goToLocation(location: centerLocation)
         imageDescriptionView.setImageWith(rest.imageURL!)
         rateImageView.image = rest.ratingImage
+        telephoneLabel.text = rest.telephone!
+        stateImageView.image = stateImage(isClosed: rest.restaurantState!)
+        
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.distanceFilter = 200
         locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func stateImage(isClosed: NSNumber) -> UIImage {
+        let image: UIImage
+        if isClosed != 0 {
+            image = #imageLiteral(resourceName: "icons8-closed_sign_filled")
+        }
+        else{
+            image = #imageLiteral(resourceName: "icons8-open_sign_filled")
+        }
+        return image
     }
     
     func goToLocation(location: CLLocation) {
