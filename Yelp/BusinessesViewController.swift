@@ -15,6 +15,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchbar: UISearchBar!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredData = searchText.isEmpty ? businesses: businesses.filter { (item: Business) -> Bool in
@@ -27,7 +29,12 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        indicatorSet()
         self.tableView.separatorInset = UIEdgeInsets.zero
+        //----------------------------------------------------------------
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+        //----------------------------------------------------------------
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -36,23 +43,36 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         retrieveData()
     }
     
+    func indicatorSet(){
+        if indicatorView.isAnimating == true {
+            indicatorView.stopAnimating()
+            indicatorView.isHidden = true
+        }
+        else{
+            indicatorView.isHidden = true
+            indicatorView.startAnimating()
+        }
+    }
+    
     func retrieveData(){
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
+            self.indicatorView.startAnimating()
             self.businesses = businesses
             self.filteredData = businesses
             self.tableView.reloadData()
+            self.indicatorView.stopAnimating()
             
             if let error = error {
                 print(error.localizedDescription)
                 self.networkErrorAlert()
             }
             
-            if let filteredData = self.filteredData {
-                for business in filteredData {
+//            if let filteredData = self.filteredData {
+//                for business in filteredData {
 //                    print("Longitude :  ",business.longitude!," latitude  :  ",business.latitude)
 //                    print(business.latitude!)
-                }
-            }
+//                }
+//            }
             
         }
         )
